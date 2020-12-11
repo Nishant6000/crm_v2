@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 04, 2020 at 08:13 PM
+-- Generation Time: Dec 11, 2020 at 09:28 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -37,65 +37,20 @@ CREATE TABLE `campaign` (
   `email_gathering` int(20) DEFAULT NULL,
   `mailvalidation` int(20) DEFAULT NULL,
   `output_fileloc` varchar(200) DEFAULT NULL,
-  `percentage1` int(11) NOT NULL,
-  `percentage2` int(11) NOT NULL,
-  `tmpcsvfileloc` int(11) NOT NULL
+  `percentage1` int(11) NOT NULL DEFAULT 0,
+  `percentage2` int(11) NOT NULL DEFAULT 0,
+  `tmpcsvfileloc` varchar(100) DEFAULT NULL,
+  `typeofsearch` varchar(10) DEFAULT NULL,
+  `filecompletedate` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `campaign`
 --
 
-INSERT INTO `campaign` (`sl_no`, `campaign_name`, `username`, `fileloc`, `fileuploaded_time`, `email_gathering`, `mailvalidation`, `output_fileloc`, `percentage1`, `percentage2`, `tmpcsvfileloc`) VALUES
-(21, 'ford-trade-show-newyork', 'nishanth_optin', 'nishanth_optin-ford-trade-show-newyork.csv', '0000-00-00 00:00:00', 0, 20190816, '0000-00-00 00:00:00', 0, 0, 0),
-(22, 'iot-expo-bangalore', 'nishanth_optin', 'nishanth_optin-iot-expo-bangalore.csv', '0000-00-00 00:00:00', 0, 20190819, '0000-00-00 00:00:00', 0, 0, 0),
-(23, 'NSC-Congress-Expo-Expo', 'nishanth_optin', 'nishanth_optin-NSC-Congress-Expo-Expo.csv', '0000-00-00 00:00:00', 0, 20190911, '0000-00-00 00:00:00', 0, 0, 0),
-(24, 'ford-trade-show-Expo', 'nishanth_optin', 'nishanth_optin-ford-trade-show-Expo.csv', '0000-00-00 00:00:00', 0, 20190916, '0000-00-00 00:00:00', 0, 0, 0),
-(25, 'Battery-Expo-bangalore', 'nishanth_optin', 'nishanth_optin-Battery-Expo-bangalore.csv', '0000-00-00 00:00:00', 0, 20191004, '0000-00-00 00:00:00', 0, 0, 0),
-(26, 'Technology-User-List-Technology', 'nishanth_optin', 'nishanth_optin-Technology-User-List-Technology.csv', '0000-00-00 00:00:00', 0, 20191126, '0000-00-00 00:00:00', 0, 0, 0),
-(27, 'asxs-asd', 'nishanth_optin', 'nishanth_optin-asxs-asd.csv', '0000-00-00 00:00:00', NULL, 20191205, NULL, 0, 0, 0),
-(28, 'Genric-industry-Technology', 'infant_optin', 'infant_optin-Genric-industry-Technology.csv', '0000-00-00 00:00:00', NULL, 20191205, NULL, 0, 0, 0),
-(29, 'Technology-User-List-newyork', 'nishanth_optin', 'nishanth_optin-Technology-User-List-newyork.csv', '0000-00-00 00:00:00', NULL, 20191211, NULL, 0, 0, 0),
-(30, 'edewa-wdewqe', 'nishanth_optin', 'nishanth_optin-edewa-wdewqe.csv', '0000-00-00 00:00:00', NULL, 20191211, NULL, 0, 0, 0),
-(31, 'gfdtgx-jflf', 'nishanth_optin', 'nishanth_optin-gfdtgx-jflf.csv', '0000-00-00 00:00:00', NULL, 20191212, NULL, 0, 0, 0),
-(32, 'ford-trade-showsada-asdsads', 'nishanth_optin', 'nishanth_optin-ford-trade-showsada-asdsads.csv', '0000-00-00 00:00:00', NULL, 20191216, NULL, 0, 0, 0),
-(33, 'nishant-ALFA-R-bangalore-alfa', 'nishanth_optin', 'nishanth_optin-nishant-ALFA-R-bangalore-alfa.csv', '0000-00-00 00:00:00', NULL, 20191216, NULL, 0, 0, 0),
-(34, 'Campaign-December-Industry', 'stanley.dave', 'stanley.dave-Campaign-December-Industry.csv', '0000-00-00 00:00:00', NULL, 20191218, NULL, 0, 0, 0),
-(35, 'Expo-URL-Dec', 'infant_optin', 'infant_optin-Expo-URL-Dec.csv', '0000-00-00 00:00:00', NULL, 20191218, NULL, 0, 0, 0),
-(36, '2020-USA-EXPO', 'nishanth_optin', 'nishanth_optin-2020-USA-EXPO.csv', '0000-00-00 00:00:00', NULL, 20200617, NULL, 0, 0, 0),
-(37, 'abc-bangalore', 'nishanth_optin', 'nishanth_optin-abc-bangalore.csv', '0000-00-00 00:00:00', NULL, 20200908, NULL, 0, 0, 0),
-(38, 'test-test-fs', 'nishanth_optin', 'nishanth_optin-test-test-fs.csv', '0000-00-00 00:00:00', NULL, 20201006, NULL, 0, 0, 0),
-(39, 'abc-jkl', 'nishanth_optin', 'nishanth_optin-abc-jkl.csv', '0000-00-00 00:00:00', NULL, 20201007, NULL, 0, 0, 0),
-(40, 'sas-asas', 'stanley.dave', 'stanley.dave-sas-asas.csv', '0000-00-00 00:00:00', NULL, 20201013, NULL, 0, 0, 0),
-(41, 'xsdc-sdc', 'nishanth_optin', 'nishanth_optin-xsdc-sdc.csv', '0000-00-00 00:00:00', NULL, 20201013, NULL, 0, 0, 0),
-(42, 'Alfa-Romeo-sss', 'nishanth_optin', 'nishanth_optin-Alfa-Romeo-sss.csv', '0000-00-00 00:00:00', NULL, 20201013, NULL, 0, 0, 0),
-(43, 'ford-trade-show-2-Technology', 'nishanth_optin', 'nishanth_optin-ford-trade-show-2-Technology.csv', '0000-00-00 00:00:00', NULL, 20201013, NULL, 0, 0, 0),
-(44, 'nishant-ALFA-R2q-bangalore', 'nishanth_optin', 'nishanth_optin-nishant-ALFA-R2q-bangalore.csv', '0000-00-00 00:00:00', NULL, 20201013, NULL, 0, 0, 0),
-(45, 'Technology-User-List2-SDAfcewF', 'nishanth_optin', 'nishanth_optin-Technology-User-List2-SDAfcewF.csv', '0000-00-00 00:00:00', NULL, 20201013, NULL, 0, 0, 0),
-(46, 'fdnn-gnhtfd', 'nishanth_optin', 'nishanth_optin-fdnn-gnhtfd.csv', '0000-00-00 00:00:00', NULL, 20201013, NULL, 0, 0, 0),
-(47, 'acwc-csdc', 'nishanth_optin', 'nishanth_optin-acwc-csdc.csv', '0000-00-00 00:00:00', NULL, 20201013, NULL, 0, 0, 0),
-(48, 'ccadcas-ascs', 'nishanth_optin', 'nishanth_optin-ccadcas-ascs.csv', '0000-00-00 00:00:00', NULL, 20201013, NULL, 0, 0, 0),
-(49, 'nishant-ALFA-RA-Technology', 'nishanth_optin', 'nishanth_optin-nishant-ALFA-RA-Technology.csv', '0000-00-00 00:00:00', NULL, 20201013, NULL, 0, 0, 0),
-(50, 'asda1we321sadc-sadcadas', 'nishanth_optin', 'nishanth_optin-asda1we321sadc-sadcadas.csv', '0000-00-00 00:00:00', NULL, 20201013, NULL, 0, 0, 0),
-(51, 'Technology-User-List2q-Technology', 'nishanth_optin', 'nishanth_optin-Technology-User-List2q-Technology.c', '0000-00-00 00:00:00', NULL, 20201016, NULL, 0, 0, 0),
-(52, 'nishant-ALFA-R-bangaloredgs', 'nishanth_optin', 'nishanth_optin-nishant-ALFA-R-bangaloredgs.csv', '0000-00-00 00:00:00', NULL, 20201022, NULL, 0, 0, 0),
-(53, 'ewfqfeq-dwferq', 'nishanth_optin', 'nishanth_optin-ewfqfeq-dwferq.csv', '0000-00-00 00:00:00', NULL, 20201022, NULL, 0, 0, 0),
-(54, 'df-dfr', 'nishanth_optin', 'nishanth_optin-df-dfr.csv', '0000-00-00 00:00:00', NULL, 20201022, NULL, 0, 0, 0),
-(55, 'sdsda-asasas', 'nishanth_optin', 'nishanth_optin-sdsda-asasas.csv', '0000-00-00 00:00:00', NULL, 20201022, NULL, 0, 0, 0),
-(56, 'Technology-User-List2-zsxs', 'nishanth_optin', 'nishanth_optin-Technology-User-List2-zsxs.csv', '0000-00-00 00:00:00', NULL, 20201022, NULL, 0, 0, 0),
-(57, 'abcs-aas', 'nishanth_optin', 'nishanth_optin-abcs-aas.csv', '0000-00-00 00:00:00', NULL, 20201022, NULL, 0, 0, 0),
-(58, 'nishvdshvx-sdsd', 'nishanth_optin', 'nishanth_optin-nishvdshvx-sdsd.csv', '0000-00-00 00:00:00', NULL, 20201022, NULL, 0, 0, 0),
-(59, 'wdqewdq-ewdq', 'nishanth_optin', 'nishanth_optin-wdqewdq-ewdq.csv', '0000-00-00 00:00:00', NULL, 20201026, NULL, 0, 0, 0),
-(60, 'alfa-romeo', 'nishanth_optin', 'nishanth_optin-alfa-romeo.csv', '0000-00-00 00:00:00', NULL, 20201028, NULL, 0, 0, 0),
-(61, 'nishant-ALFA-R23-Technology', 'nishanth_optin', 'nishanth_optin-nishant-ALFA-R23-Technology.csv', '0000-00-00 00:00:00', NULL, 20201029, NULL, 0, 0, 0),
-(62, 'nishant-ALFA-Ras-Technology', 'nishanth_optin', 'nishanth_optin-nishant-ALFA-Ras-Technology.csv', '0000-00-00 00:00:00', NULL, 20201030, NULL, 0, 0, 0),
-(63, 'nishant-ALFA-Rasas-alfred', 'nishanth_optin', 'nishanth_optin-nishant-ALFA-Rasas-alfred.csv', '0000-00-00 00:00:00', NULL, 20201102, NULL, 0, 0, 0),
-(64, 'nishant-s', 'nishanth_optin', 'nishanth_optin-nishant-s.csv', '0000-00-00 00:00:00', NULL, 20201103, NULL, 0, 0, 0),
-(65, 'nishant-Technology', 'nishanth_optin', 'nishanth_optin-nishant-Technology.csv', '0000-00-00 00:00:00', NULL, 20201104, NULL, 0, 0, 0),
-(66, 'nisSs-ass', 'nishanth_optin', 'nishanth_optin-nisSs-ass.csv', '0000-00-00 00:00:00', NULL, 20201104, NULL, 0, 0, 0),
-(67, 'asa-asas', 'nishanth_optin', 'nishanth_optin-asa-asas.csv', '0000-00-00 00:00:00', NULL, 20201104, NULL, 0, 0, 0),
-(68, 'wsqwesws-sxxxs', 'nishanth_optin', 'nishanth_optin-wsqwesws-sxxxs.csv', '0000-00-00 00:00:00', NULL, 20201104, NULL, 0, 0, 0),
-(69, 'kartahara-singh', 'nishanth_optin', 'nishanth_optin-kartahara-singh.csv', '0000-00-00 00:00:00', NULL, 20201104, NULL, 0, 0, 0);
+INSERT INTO `campaign` (`sl_no`, `campaign_name`, `username`, `fileloc`, `fileuploaded_time`, `email_gathering`, `mailvalidation`, `output_fileloc`, `percentage1`, `percentage2`, `tmpcsvfileloc`, `typeofsearch`, `filecompletedate`) VALUES
+(75, '5g-OPERATORS-usa', 'nishanth_optin', '../campagin_db_v2/nishanth_optin/Book1.xlsx', '2020-12-12 01:55:19', NULL, NULL, NULL, 0, 0, NULL, 'CUSTOM', NULL),
+(76, '5g-OPERATORS-usa', 'nishanth_optin', '../campagin_db_v2/nishanth_optin/Book4.xlsx', '2020-12-12 01:56:31', NULL, NULL, NULL, 0, 0, NULL, 'CUSTOM', NULL);
 
 -- --------------------------------------------------------
 
@@ -682,7 +637,7 @@ ALTER TABLE `proxy`
 -- AUTO_INCREMENT for table `campaign`
 --
 ALTER TABLE `campaign`
-  MODIFY `sl_no` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `sl_no` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 
 --
 -- AUTO_INCREMENT for table `crm_auth`

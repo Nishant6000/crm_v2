@@ -1,5 +1,4 @@
 <?php
-
 // display all error except deprecated and notice  
 error_reporting( E_ALL & ~E_DEPRECATED & ~E_NOTICE );
 // turn on output buffering 
@@ -38,5 +37,6 @@ try {
     echo errorMessage($ex->getMessage());
     die;
 }
+
 
 ?>

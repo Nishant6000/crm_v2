@@ -1,3 +1,13 @@
+<?php session_start();?>
+<?php 
+		if(isset($_GET['stat'])){
+		 $stat = $_GET['stat'];
+		?>
+		<script>
+		alert("<?php echo $stat ?>");
+		</script>
+		<?php
+	  }?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,7 +49,19 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    
+                    <?php
+					
+					if (isset($_SESSION["optin_user"])){
+					$temp = $_SESSION["optin_user"];
+					$user_name = str_ireplace("optin_","",$temp); //user name
+				
+							include("./db_v2/config.php");
+							if($temp){
+								$data = select_distinct_campaign($user_name);
+		
+							}
+					}
+					?>
 
                     <!-- Content Row -->
                     <div class="row">
@@ -72,11 +94,12 @@
                                     <h6 class="m-0 font-weight-bold text-primary">Upload Files</h6>
                                 </div>
                                 <div class="card-body">
-                                    <form method="post" action="#" id="#">
+                                    <form method="post" action="./php_v2/load_campain.php" enctype="multipart/form-data">
 									  <div class="selectholder">
 										<div class="form-group">
 										<label>Enter New Campaign </label>
-										<input type="text" class="form-control" value="">
+										<input type="hidden" name="username" value="<?php echo $user_name;?>">
+										<input type="text" name="camp_name" class="form-control">   
 										</div>
 										
 										 <div class="or">
@@ -85,9 +108,16 @@
 										  
 										<div class="form-group">
 										<label>Select Campaign</label>
-										 <select class="form-control" name="campname" id="sel1">
+										 <select class="form-control" name="campnamepicked" id="sel1">
 											<option value="SELECT">SELECT</option>
-										
+											<?php
+											if($data){
+												foreach($data as $dat){
+													echo "<option value=".$dat['campaign_name'].">".$dat['campaign_name']."</option>";
+												}
+												
+											}
+											?>
 										  </select>
 										</div>
 										 <hr class="dashed">
@@ -95,29 +125,29 @@
 									  
 									  <div class="form-group files">
 										<label>Upload Your File </label>
-										<input type="file" class="form-control" multiple="">
+										<input type="file" name="fileupload" class="form-control">
 									  </div>
 									  <div class="form-group radioselect" id="radio">
 										<label class="radio-inline">
-										  <input type="radio" name="optradio" checked>&nbsp;Custom Search
+										  <input type="radio" name="optradio" value="CUSTOM" checked>&nbsp;Custom Search
 										</label>
 										<label class="radio-inline">
-										  <input type="radio" name="optradio">&nbsp;Bulk Search
+										  <input type="radio" name="optradio" value="BULK">&nbsp;Bulk Search
 										</label>
 										<label class="radio-inline">
-										  <input type="radio" name="optradio">&nbsp;Company To Url
+										  <input type="radio" name="optradio" value="CTOURL">&nbsp;Company To Url
 										</label>
 										<label class="radio-inline">
-										  <input type="radio" name="optradio">&nbsp;Mail Validation 
+										  <input type="radio" name="optradio" value="MAILVAL">&nbsp;Mail Validation 
 										</label>
 									  </div>
 									  <div class="task-btn">
-									  <a href="#" class="btn btn-success btn-icon-split">
+									  <button type="submit" name="submit" class="btn btn-success btn-icon-split">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-arrow-right"></i>
                                         </span>
                                         <span class="text">Add Task To Cron</span>
-                                    </a>
+                                    </button>
 									  </div>
 									</form>
                                 </div>
@@ -163,7 +193,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="logout.php">Logout</a>
                 </div>
             </div>
         </div>

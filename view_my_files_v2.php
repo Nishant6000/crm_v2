@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -86,33 +87,50 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+									<?php 
+									if (isset($_SESSION["optin_user"])){
+										$temp = $_SESSION["optin_user"];
+										$user_name = str_ireplace("optin_","",$temp); //user name
+									
+												include("./db_v2/config.php");
+												if($temp){
+													$data = select_all_camp($user_name);
+												}
+									}
+									
+								
+									?>
+								<?php if($data){
+										foreach($data as $dat){?>
                                         <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>2011/04/25</td>
-                                            <td>2011/04/25</td>
+                                            <td><?php echo $dat['campaign_name']; ?></td>
+                                            <td><?php echo $dat['fileloc']; ?></td>
+                                            <td><?php echo $dat['fileuploaded_time']; ?></td>
+                                            <td><?php echo $dat['filecompletedate']; ?></td>
                                             <td><div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $dat['percentage1']?>%</div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        <div class="progress-bar bg-info" role="progressbar" style="width: <?php echo $dat['percentage1']?>%" aria-valuenow="<?php echo $dat['percentage2']?>" aria-valuemin="0" aria-valuemax="100"></div>
                                                     </div>
                                                 </div>
                                             </div></td>
                                             <td><div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $dat['percentage2']?>%</div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        <div class="progress-bar bg-info" role="progressbar" style="width: <?php echo $dat['percentage2']?>%" aria-valuenow="<?php echo $dat['percentage2']?>" aria-valuemin="0" aria-valuemax="100"></div>
                                                     </div>
                                                 </div>
                                             </div></td>
-											 <td class="text-center"><i class="fa fa-download" aria-hidden="true"></i></td>
+											 <td class="text-center"><a href="<?php echo $dat['output_fileloc'];?>"><i class="fa fa-download" aria-hidden="true"></i></a></td>
                                         </tr>
+									
+								<?php }}?>
                                     </tbody>
                                 </table>
                             </div>
