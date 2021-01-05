@@ -1,4 +1,18 @@
-<?php session_start(); ?>
+<?php session_start(); 
+if (isset($_SESSION["optin_user"])){
+$temp = $_SESSION["optin_user"];
+$user_name = str_ireplace("optin_","",$temp); //user name								
+	include("./db_v2/config.php");
+	if($temp){
+		$data = Select_All_Completed_Task($user_name);
+		$data2 = Select_All_Pending_Task($user_name);
+		$total = select_all_camp($user_name);
+		$percentage =(count($data) / count($total))*100;
+	}
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -53,7 +67,8 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Completed Tasks</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">10</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php
+											echo count($data);?></div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -71,7 +86,8 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                 Pending Tasks</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">20</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php
+											echo count($data2);?></div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -104,10 +120,10 @@
                                 </div>
                                 <div class="card-body">
                                     <h4 class="small font-weight-bold">Tasks Completed <span
-                                            class="float-right">60%</span></h4>
+                                            class="float-right"><?php echo $percentage;?>%</span></h4>
                                     <div class="progress mb-4">
-                                        <div class="progress-bar" role="progressbar" style="width: 60%"
-                                            aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar" role="progressbar" style="width: <?php echo $percentage;?>%"
+                                            aria-valuenow="<?php echo $percentage;?>" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                  
                                 </div>

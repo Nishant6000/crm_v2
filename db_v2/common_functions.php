@@ -102,4 +102,22 @@ $sql = "SELECT * FROM campaign WHERE username='$user' ORDER BY sl_no DESC" ;
 	return $results;
 }
 //======================================================================================================
+function Select_All_Completed_Task($user_name){
+	$sql = "SELECT * FROM campaign WHERE username='$user_name' AND output_fileloc IS NOT NULL ORDER BY sl_no DESC" ;	
+	$link = mysqli_connect(DB_HOST, DB_HOST_USERNAME, DB_HOST_PASSWORD, DB_DATABASE);
+	//mysqli_select_db(DB_DATABASE, $link);
+	$result = mysqli_query($link, $sql);
+	 $results = mysqli_fetch_all($result, MYSQLI_ASSOC);
+	//return $num_rows = mysqli_num_rows($result);
+	return $results;
+}
+function Select_All_Pending_Task($user_name){
+	$sql = "SELECT * FROM campaign WHERE username='$user_name' AND output_fileloc IS NULL ORDER BY sl_no DESC" ;	
+	$link = mysqli_connect(DB_HOST, DB_HOST_USERNAME, DB_HOST_PASSWORD, DB_DATABASE);
+	//mysqli_select_db(DB_DATABASE, $link);
+	$result = mysqli_query($link, $sql);
+	 $results = mysqli_fetch_all($result, MYSQLI_ASSOC);
+	//return $num_rows = mysqli_num_rows($result);
+	return $results;
+}
 ?>

@@ -70,7 +70,7 @@
                             <!-- Project Card Example -->
                             <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Task List</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -78,11 +78,13 @@
                                     <thead>
                                         <tr>
                                             <th>Campain Name</th>
+											 <th>Task Type</th>
                                             <th>Uploaded File</th>
 											 <th>Uploaded Date</th>
 											 <th>Completed Date</th>
                                             <th>Data Extraction Status</th>
                                             <th>Mail Validation Status</th>
+											<th>Mail Filter </th>
                                             <th>Download</th>
                                         </tr>
                                     </thead>
@@ -104,6 +106,7 @@
 										foreach($data as $dat){?>
                                         <tr>
                                             <td><?php echo $dat['campaign_name']; ?></td>
+											<td><?php echo $dat['typeofsearch']; ?></td>
                                             <td><?php echo $dat['fileloc']; ?></td>
                                             <td><?php echo $dat['fileuploaded_time']; ?></td>
                                             <td><?php echo $dat['filecompletedate']; ?></td>
@@ -124,6 +127,16 @@
                                                 <div class="col">
                                                     <div class="progress progress-sm mr-2">
                                                         <div class="progress-bar bg-info" role="progressbar" style="width: <?php echo $dat['percentage2']?>%" aria-valuenow="<?php echo $dat['percentage2']?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                            </div></td>
+											<td><div class="row no-gutters align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $dat['percentage3']?>%</div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="progress progress-sm mr-2">
+                                                        <div class="progress-bar bg-info" role="progressbar" style="width: <?php echo $dat['percentage3']?>%" aria-valuenow="<?php echo $dat['percentage3']?>" aria-valuemin="0" aria-valuemax="100"></div>
                                                     </div>
                                                 </div>
                                             </div></td>

@@ -18,3 +18,39 @@
 
     <!-- Page level custom scripts -->
     <script src="./js/demo/datatables-demo.js"></script>
+	
+	<script>
+function GetEmail() {
+	var email = document.getElementById("bmd-label-floating-email").value;
+	var emailval = validateEmail(email);
+	if(emailval == false){
+		alert("In-Valid Email Address!");
+		return;
+	}
+	if (email != ""){
+		 $("#Email-Validator").html('<img src="loading.gif"> Loading Please Wait...');
+		if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("Email-Validator").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET","php_v2/email-validator-list.php?email="+email,true);
+        xmlhttp.send();
+	}else {
+		alert("E-mail Feild Cannot Be Left Blank!");
+		//alert("Non Of The Feilds Can Be Left Blank");
+		return;
+	}
+}
+function validateEmail(email) {
+  var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(email);
+}
+</script>

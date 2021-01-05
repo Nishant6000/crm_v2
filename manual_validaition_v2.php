@@ -76,15 +76,15 @@
 									  <div class="selectholder">
 										<div class="form-group">
 										<label>Enter Email To Validate</label>
-										<input type="text" class="form-control" value="">
+										<input id="bmd-label-floating-email" type="text" class="form-control" value="">
 										</div> 
 									  </div>
 									  <div class="task-btn">
-									  <a href="#" class="btn btn-success btn-icon-split">
+									  <a href="#" class="btn btn-success btn-icon-split" onclick="GetEmail()">
                                         <span class="icon text-white-50">
                                             <i class="fas fa fa-check"></i>
                                         </span>
-                                        <span class="text">Add Task To Cron</span>
+                                        <span class="text">Validate</span>
                                     </a>
 									  </div>
 									</form>
@@ -92,7 +92,11 @@
                                 </div>
                             </div>
 
-                            
+                           <div class="col-md-12">
+								<div id="Email-Validator">
+								
+								</div>   
+							</div> 
 
                         </div>              
                     </div>
