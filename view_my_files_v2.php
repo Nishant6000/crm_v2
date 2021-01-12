@@ -85,7 +85,7 @@
                                             <th>Data Extraction Status</th>
                                             <th>Mail Validation Status</th>
 											<th>Mail Filter </th>
-                                            <th>Download</th>
+                                            <th>Download/Delete</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -140,7 +140,7 @@
                                                     </div>
                                                 </div>
                                             </div></td>
-											 <td class="text-center"><a href="<?php echo $dat['output_fileloc'];?>"><i class="fa fa-download" aria-hidden="true"></i></a></td>
+											 <td class="text-center"><a href="<?php echo $dat['output_fileloc'];?>"><i class="fa fa-download" aria-hidden="true"></i></a>&nbsp;&nbsp;<a href="./delete_v2.php?id=<?php echo $dat['sl_no'];?>"><i class="fa fa-trash" style="color:red;"aria-hidden="true"></i></a></td>
                                         </tr>
 									
 								<?php }}?>

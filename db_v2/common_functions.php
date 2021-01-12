@@ -120,4 +120,37 @@ function Select_All_Pending_Task($user_name){
 	//return $num_rows = mysqli_num_rows($result);
 	return $results;
 }
+function delete_slno($sl){
+	 global $DB;
+    $rs = array();
+	$sql = "DELETE FROM campaign WHERE sl_no = '$sl'";
+    
+    try {
+        $stmt = $DB->prepare($sql);
+        $stmt->execute();
+    } catch (Exception $ex) {
+        echo errorMessage($ex->getMessage());
+    }
+return true;
+}
+function get_all_pending_Task($username){
+	$sql = "SELECT * FROM campaign WHERE username = '$username' AND status = '0'";	
+	$link = mysqli_connect(DB_HOST, DB_HOST_USERNAME, DB_HOST_PASSWORD, DB_DATABASE);
+	//mysqli_select_db(DB_DATABASE, $link);
+	$result = mysqli_query($link, $sql);
+	 $results = mysqli_fetch_all($result, MYSQLI_ASSOC);
+	//return $num_rows = mysqli_num_rows($result);
+	return $results;
+}
+function update_error_msg($sl_no, $msg, $status){
+	global $DB;
+    $rs = array();
+	$sql = "UPDATE campaign SET error_msg='$msg', status='$status' WHERE sl_no='$sl_no'";
+    try {
+        $stmt = $DB->prepare($sql);
+        $stmt->execute();
+    } catch (Exception $ex) {
+        echo errorMessage($ex->getMessage());
+    }
+}
 ?>
