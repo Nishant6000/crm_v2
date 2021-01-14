@@ -1,19 +1,25 @@
 
 <?php 
 include("./db_v2/config.php");
-require('../classes_v2/xlsxreader.php');
-require('../classes_v2/class.customsearch.php');
-require('../classes_v2/xlsxwriter.php');
+require('./classes_v2/xlsxreader.php');
+require('./classes_v2/class.customsearch.php');
+require('./classes_v2/xlsxwriter.php');
 date_default_timezone_set('America/Chicago');
 $date = date('Y-m-d');
 $username =  "nishanth_optin";
 $mail_type = "text";
+//===========================================================================
+function savefile($fname, $val){
+$fp = fopen($fname, 'a');
+fputcsv($fp, $val);
+fclose($fp);
+}
 //========================Get ALL Pending Task===============================
 //while(1){
 	$task = get_all_pending_Task($username);
 	if($task){
 		foreach ($task as $tas){
-			if($tas["typeofsearch"] == "BULK"){// check if type of search
+			if($tas["typeofsearch"] == "BULK"){// check if type of search Bulk
 				$filename = $tas["fileloc"];
 				$filename = str_ireplace('../','./',$filename);
 				$xlsx = new XLSXReader($filename);
@@ -21,25 +27,33 @@ $mail_type = "text";
 				$sheet = $xlsx->getSheet($sheetNames[1]);
 				$final = $sheet->getData();
 				$final_count = count($final);
+				$namest = false;
+				$urlcnt = 0;
+				$urlfcount = 0;
+				$forxlsxdata = array();
+				$writer = new XLSXWriter();
+				$writer->setAuthor('Optin Prospects'); 
+				$kmc = 0;
 				//========count if data exists else close the activity====
 				if($final_count){
 //========*******STARTOFBULKSEARCH******************************************************
 ini_set('display_errors', 0);
 ini_set('log_errors', 1);
 error_reporting(E_ALL & ~E_NOTICE);
-//===================Crea===============================================
+//=====================================Create output excel file and csv===============================================
 $filearray = explode('/',$filename);
 $Output_File_Name = "abemail-".$tas["campaign_name"]."-".rand(1,100)."-".$filearray[3];
-$Output_File_Loc = $filearray[0]."/optin_db_folder_v2/".$filearray[2]."/".$Output_File_Name;
+$Output_File_Loc = "./optin_db_folder_v2/".$filearray[2]."/".$Output_File_Name;
 $Newcsvfile = "csvabemail-".rand(1,100)."-".$file_name_buff;
-$Newcsvfileloc = "../optin_db_folder_v2/".$user_name."/".$Newcsvfile;
+$Newcsvfileloc = "./optin_db_folder_v2/".$user_name."/".$Newcsvfile;
 if (!file_exists($Newcsvfileloc)) {
 	$fh = fopen($Newcsvfileloc, 'w');
 }
-$file_loc = "../optin_db_folder_v2/".$username."/".$Output_File_Name;
-if (!file_exists('../optin_db_folder_v2/'.$username)) {
-	mkdir('../optin_db_folder_v2/'.$username, 0777, true);
+$file_loc = "./optin_db_folder_v2/".$username."/".$Output_File_Name;
+if (!file_exists('./optin_db_folder_v2/'.$username)) {
+	mkdir('./optin_db_folder_v2/'.$username, 0777, true);
 }
+//=====================================Check if output file Exists==== 
 if(file_exists($Output_File_Loc)){
 	echo "</br>";
 	echo "File Exists cannot Proceed Further. Please Create a New Campagin";
@@ -51,97 +65,69 @@ for($c=0;$c<40000;$c++)echo " ";
 flush();
 //============================================================================
 
-
-
-//========================END================================================
-
-
-
-//*********************Temp Zone*****************************
-
-if($_FILES['file']['name'] != ''){
-	
-echo "File 	Uploaded, Processing The File,Please Wait......";
-for($c=0;$c<40000;$c++)echo " ";
-flush();
-$xlsx = new XLSXReader($location.$file_name); // Use Session to Get file name
-$sheetNames = $xlsx->getSheetNames();
-$namest = false;
-$urlcnt = 0;
-$urlfcount = 0;
-$filenametocreatexlsxdata = $location."response".$file_name;
-$forxlsxdata = array();
-$writer = new XLSXWriter();
-$writer->setAuthor('Optin Prospects'); 
-$kmc = 0;
 if(count($sheetNames) == 0 || count($sheetNames) == ""){
 	echo "Empty File Cannot Proceed";
+	for($c=0;$c<40000;$c++)echo " ";
+	flush();
 }else{
-	//$sheetNames = $xlsx->getSheetNames();
-	$sheet = $xlsx->getSheet($sheetNames[1]);
-	$final = $sheet->getData();
-	echo $rowcounter =  count($final);
+	// fetch total no of rows in excel
+	$rowcounter =  count($final);
 	$rowcount = $final[0];
+	//===========================================
 	foreach($rowcount as $rowcnt){
-		if(stristr($rowcnt, 'url')){
+		if(stristr($rowcnt, 'url')){ // check if url feild exist in the excel file
 			$namest = true;
 			$urlfcount = $urlcnt;
-			
 		}else{
 		}
 		$urlcnt++;
 	}
-	if($namest){
+	if($namest){ // if everything fine Proeed
 		echo "Good Url Exists!";
-		$namest = false;
-		///===========================================================================================
-		session_start();
-			
-			if(isset($_SESSION['optin_user'])){
-				$temp_user = $_SESSION["optin_user"];
-			$user_name = str_ireplace("optin_","",$temp_user);
-		$file_loc = "../test/".$user_name."-all-user.txt";
-		$file_loc_2 = "../test/".$user_name."-all-user-data.txt";
-				if (!(file_exists($file_loc))) {
-				$fh = fopen($file_loc, 'a');
-				$fhd = 0;
-				fwrite($fh,$fhd);
-				fclose($fh);
-				$fh = fopen($file_loc_2, 'a');
-				$fhd = "";
-				fwrite($fh,$fhd);
-				fclose($fh);
-			}
+		$namest = false;//===========================================================================================
+		//session_start();
+			// write log files ======================================================
+			/* if(isset($username)){
+		$user_name = $username;
+		$file_loc = "./test_v2/".$user_name."-all-user.txt";
+		$file_loc_2 = "./test_v2/".$user_name."-all-user-data.txt";
+					if (!(file_exists($file_loc))) {
+					$fh = fopen($file_loc, 'a');
+					$fhd = 0;
+					fwrite($fh,$fhd);
+					fclose($fh);
+					$fh = fopen($file_loc_2, 'a');
+					$fhd = "";
+					fwrite($fh,$fhd);
+					fclose($fh);
+				}
 				
 			}else{
 				header('location: ../index.php');
-			}
-		
-		
-		//==========================================================================================
-		for($i=0;$i<$rowcounter;$i++){
+			} */
+//===============================================================================
+update_count($tas["sl_no"], 'percentage1', 100);
+update_count($tas["sl_no"], 'percentage2', 100);
+//==================================================================================
+for($i=0;$i<$rowcounter;$i++){ // starting to process file
 			$rowcount = $final[$i];
 			$rowtest = $rowcount[$urlfcount];
 					if(!stristr($rowtest, 'url') && $rowtest != ""){
-						sleep(2);
+						sleep(0);
 						$fh = fopen("stat.txt", 'a') or die("Failed to read file"); 
 						fwrite($fh, $rowtest);
 						fclose($fh);
-						
-						//==========================================================================
+//====================================================================================
+//==========================================================================
 						$c2urls = new companytourl();
-						
 								$urlp = $c2urls->get_domain($rowtest);
-								
 								$ar = "";
 								$gsearch = 'EMAILS'.' '. '"@'.$urlp.'"';
 								$bysearch = '[@'.$urlp.']';
 								$yandex = '"@'.$urlp.'"';
 								$nval = $i;
-								
 								//$results = $c2urls->fetch_google_result($gsearch,'2');
 								 $results = $c2urls->fetch_google_result_via_proxy($gsearch,'2', $nval);
-								 
 								if(stristr($results,"302 Moved")){ // Google Capatcha Solving
 									$dom = new DOMDocument(1.0);
 									@$dom->loadHTML($results);
@@ -202,48 +188,43 @@ if(count($sheetNames) == 0 || count($sheetNames) == ""){
 									$kmc++;
 								}
 					
-					// store it into excel ================================================
 							
 					}else{
 						
 					}
+			sleep(1);
+			update_count($tas["sl_no"],'email_gathering', $nval);
+			//update Percentage
+			$final_count2 = $final_count - 1;
+			$per = ($nval / $final_count2)*100;
+			update_count($tas["sl_no"],'percentage3', $per);
+		}
+//===================================================================================		
+		if (!file_exists($Output_File_Loc)) {
+			foreach($forxlsxdata as $row){
+			$writer->writeSheetRow('Sheet1', $row);
+			}		
+		} else {
+			$msg = "Excel File Exist, Download CSV File";
+			update_error_msg($tas["sl_no"], $msg, 2);
 			
 		}
-		if (!file_exists($main_file_name)) {
-		foreach($forxlsxdata as $row){
-		$writer->writeSheetRow('Sheet1', $row);
-		}		
-} else {
-    echo "The file $main_file_name exist";
-	
-}
-$writer->writeToFile($main_file_name);
+$writer->writeToFile($Output_File_Loc);
 echo "Saved To File";
-			//foreach($forxlsxdata as $test){
-				//print_r($test) ;
-				//echo "</br>";
-			//}
+//===Store Success in Database======================================
+
+//===============================================
 	}else{
 		$namest = false;
-		echo "Excel File without Url Cannot Be Used. Please Upload a new File";
-		if (file_exists($main_file_name)) {
-			unlink($main_file_name_2);
-		}else{
-		
-		// delete particular code
+		$msg = "Excel File without Url Cannot Be Used. Please Upload a new File";
+		update_error_msg($tas["sl_no"], $msg, 2);
+		//update error msg;
 	}
 }
-}
-
-}else{
-	echo "No File Selected";
-
-}
-
 //============*****ENDOFBULK***********************************
 				}else{
 					// update database with error report of invalid file type
-					$msg = "Empty Excel File"
+					$msg = "Empty Excel File";
 					update_error_msg($tas["sl_no"], $msg, 2);// stored error msg and stopped
 				}
 				//=============Bulk Search Process============

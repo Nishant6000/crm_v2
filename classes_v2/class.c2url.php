@@ -36,6 +36,7 @@ $search2 = urlencode($search); //encode for google search;
 $proxyname = "WEBSHARE_PROXY";
 $proxyno = "1";
 $proxyfile = get_proxy_info($proxyname,$proxyno);
+
 date_default_timezone_set("America/New_York");
 $cpdate = date("Y-m-d");
 
@@ -417,7 +418,7 @@ if(!($proxyfile)){// if a proxy doesnt eexist return error msg
 		self::write_log($data);
 	}
 	public static function write_log($data){
-		$fh = fopen("../log/alllogs.txt", 'a+') or die("Failed to read file"); 
+		$fh = fopen("./log/alllogs.txt", 'a+') or die("Failed to read file"); 
 		fwrite($fh, $data);
 		fclose($fh);
 		sleep(2);
@@ -451,7 +452,7 @@ public static function curl_proxy($sURL,$sProxyUrl,$no){
 	$proxyfile_auth = $no;
 	if($proxyfile_auth){
 		$proxy_file = self::getproxyfilearray_pass($proxyfile_auth);
-		$proxyauth = $proxy_file[0];		
+		$proxyauth = $proxy_file[0];
 	}else{
 		$proxyauth = 'optinprospects:mELb727ZnH';
 		
@@ -502,7 +503,6 @@ public static function queryproxy($serverport, $status, $search2, $pronumbertemp
 		  $url = "https://www.google.com/search?num=100&pws=0&q=". $search2 ."&btnG=Google+Search";
 		  $resultg = self::curl_proxy($url, $serverport, $pronumbertemp); 
 		}
-		
 		return $resultg;
 	}
 

@@ -153,4 +153,71 @@ function update_error_msg($sl_no, $msg, $status){
         echo errorMessage($ex->getMessage());
     }
 }
+function update_success_msg($sl_no, $msg, $status){
+	$date = date('Y-m-d h:i:s');
+	global $DB;
+    $rs = array();
+	$sql = "UPDATE campaign SET error_msg='$msg', status='1',filecompletedate='$date' WHERE sl_no='$sl_no'";
+    try {
+        $stmt = $DB->prepare($sql);
+        $stmt->execute();
+    } catch (Exception $ex) {
+        echo errorMessage($ex->getMessage());
+    }
+}
+function update_count($sl_no, $watup, $count){
+	$date = date('Y-m-d h:i:s');
+	global $DB;
+    $rs = array();
+	$sql = "UPDATE campaign SET $watup='$count' WHERE sl_no='$sl_no'";
+    try {
+        $stmt = $DB->prepare($sql);
+        $stmt->execute();
+    } catch (Exception $ex) {
+        echo errorMessage($ex->getMessage());
+    }
+}
+function get_proxy_info($proxyname,$proxyno) {
+      $sql = "SELECT * FROM proxy WHERE name = '$proxyname' AND server_no = '$proxyno'";	
+	$link = mysqli_connect(DB_HOST, DB_HOST_USERNAME, DB_HOST_PASSWORD, DB_DATABASE);
+	//mysqli_select_db(DB_DATABASE, $link);
+	$result = mysqli_query($link, $sql);
+	 $results = mysqli_fetch_all($result, MYSQLI_ASSOC);
+	//return $num_rows = mysqli_num_rows($result);
+	return $results;
+}
+function get_cap_stat($proxyname){
+	 $sql = "SELECT * FROM captcha WHERE name = '$proxyname'";
+	$link = mysqli_connect(DB_HOST, DB_HOST_USERNAME, DB_HOST_PASSWORD, DB_DATABASE);
+	//mysqli_select_db(DB_DATABASE, $link);
+	$result = mysqli_query($link, $sql);
+	 $results = mysqli_fetch_all($result, MYSQLI_ASSOC);
+	//return $num_rows = mysqli_num_rows($result);
+	return $results;
+}
+function write_current_status($datafileproxy, $txt2){
+	 global $DB;
+	$mix = $comments."|".$user_name;
+    $rs = array();
+	$sql = "UPDATE proxy SET Serverinfo ='$txt2' WHERE server_no='$datafileproxy'";
+    
+    try {
+        $stmt = $DB->prepare($sql);
+        $stmt->execute();
+    } catch (Exception $ex) {
+        echo errorMessage($ex->getMessage());
+    }
+}
+function write_capatcha($proxyname, $txt2){
+	global $DB;
+    $rs = array();
+	$sql = "UPDATE captcha SET capdata ='$txt2' WHERE name='$proxyname'";
+    
+    try {
+        $stmt = $DB->prepare($sql);
+        $stmt->execute();
+    } catch (Exception $ex) {
+        echo errorMessage($ex->getMessage());
+    }
+}
 ?>
