@@ -377,8 +377,9 @@ if(!($proxyfile)){// if a proxy doesnt eexist return error msg
 				$temp3 = 0;
 			}
 			$txt2 = $temp3."|".$date;
+		
 			write_capatcha($proxyname, $txt2);
-			
+				
 			//==========================================================
 	}
 	public static function updateactive($datafileproxy){
@@ -425,6 +426,7 @@ if(!($proxyfile)){// if a proxy doesnt eexist return error msg
 		
 	}	
 	public static function checkcap($data){
+		
 		if(stristr($data,"302 Moved")){
 			return $cap = true;							
 		}else if(stristr($data,"Our systems have detected unusual traffic from your computer")){

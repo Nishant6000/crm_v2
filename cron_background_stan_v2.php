@@ -44,10 +44,10 @@ error_reporting(E_ALL & ~E_NOTICE);
 $filearray = explode('/',$filename);
 $Output_File_Name = "abemail-".$tas["campaign_name"]."-".rand(1,100)."-".$filearray[3];
 $Output_File_Loc = "./optin_db_folder_v2/".$filearray[2]."/".$Output_File_Name;
-$Newcsvfile = "csvabemail-".rand(1,100)."-".$file_name_buff;
-$Newcsvfileloc = "./optin_db_folder_v2/".$user_name."/".$Newcsvfile;
-if (!file_exists($Newcsvfileloc)) {
-	$fh = fopen($Newcsvfileloc, 'w');
+$newcsvfile = "csvabemail-".rand(1,100).".csv";
+$newcsvfileloc = "./optin_db_folder_v2/".$username."/".$newcsvfile;
+if (!file_exists($newcsvfileloc)) {
+	$fh = fopen($newcsvfileloc, 'w');
 }
 $file_loc = "./optin_db_folder_v2/".$username."/".$Output_File_Name;
 if (!file_exists('./optin_db_folder_v2/'.$username)) {
@@ -106,9 +106,10 @@ if(count($sheetNames) == 0 || count($sheetNames) == ""){
 				header('location: ../index.php');
 			} */
 //===============================================================================
-update_count($tas["sl_no"], 'percentage1', 100);
+update_count($tas["sl_no"], 'percentage3', 100);
 update_count($tas["sl_no"], 'percentage2', 100);
 //==================================================================================
+update_filename($tas["sl_no"], $newcsvfileloc);
 for($i=0;$i<$rowcounter;$i++){ // starting to process file
 			$rowcount = $final[$i];
 			$rowtest = $rowcount[$urlfcount];
@@ -197,7 +198,7 @@ for($i=0;$i<$rowcounter;$i++){ // starting to process file
 			//update Percentage
 			$final_count2 = $final_count - 1;
 			$per = ($nval / $final_count2)*100;
-			update_count($tas["sl_no"],'percentage3', $per);
+			update_count($tas["sl_no"],'percentage1', $per);
 		}
 //===================================================================================		
 		if (!file_exists($Output_File_Loc)) {
@@ -212,7 +213,8 @@ for($i=0;$i<$rowcounter;$i++){ // starting to process file
 $writer->writeToFile($Output_File_Loc);
 echo "Saved To File";
 //===Store Success in Database======================================
-
+update_success_msg($tas["sl_no"], "Data Saved Successfully", 1);
+update_filename($tas["sl_no"], $Output_File_Loc);
 //===============================================
 	}else{
 		$namest = false;

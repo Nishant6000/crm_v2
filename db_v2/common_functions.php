@@ -165,6 +165,18 @@ function update_success_msg($sl_no, $msg, $status){
         echo errorMessage($ex->getMessage());
     }
 }
+function update_filename($sl_no, $filename){
+	$date = date('Y-m-d h:i:s');
+	global $DB;
+    $rs = array();
+	$sql = "UPDATE campaign SET tmpcsvfileloc='$filename' WHERE sl_no='$sl_no'";
+    try {
+        $stmt = $DB->prepare($sql);
+        $stmt->execute();
+    } catch (Exception $ex) {
+        echo errorMessage($ex->getMessage());
+    }
+}
 function update_count($sl_no, $watup, $count){
 	$date = date('Y-m-d h:i:s');
 	global $DB;

@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+<meta http-equiv="refresh" content="30" />
 
     <title>OPSoft Dashboard</title>
 
@@ -79,7 +80,6 @@
                                         <tr>
                                             <th>Campain Name</th>
 											 <th>Task Type</th>
-                                            <th>Uploaded File</th>
 											 <th>Uploaded Date</th>
 											 <th>Completed Date</th>
                                             <th>Data Extraction Status</th>
@@ -107,7 +107,6 @@
                                         <tr>
                                             <td><?php echo $dat['campaign_name']; ?></td>
 											<td><?php echo $dat['typeofsearch']; ?></td>
-                                            <td><?php echo $dat['fileloc']; ?></td>
                                             <td><?php echo $dat['fileuploaded_time']; ?></td>
                                             <td><?php echo $dat['filecompletedate']; ?></td>
                                             <td><div class="row no-gutters align-items-center">
@@ -140,7 +139,16 @@
                                                     </div>
                                                 </div>
                                             </div></td>
-											 <td class="text-center"><a href="<?php echo $dat['output_fileloc'];?>"><i class="fa fa-download" aria-hidden="true"></i></a>&nbsp;&nbsp;<a href="./delete_v2.php?id=<?php echo $dat['sl_no'];?>"><i class="fa fa-trash" style="color:red;"aria-hidden="true"></i></a></td>
+											<?php 
+											echo '<td class="text-center"><a href=".download_v2.php?f='.$dat['tmpcsvfileloc'].'"><i class="fa fa-download" aria-hidden="true"></i></a>&nbsp;&nbsp;<a href="./delete_v2.php?id='.$dat['sl_no'].'"><i class="fa fa-trash" style="color:red;"aria-hidden="true"></i></a></td>';
+											/* if($dat['status']){
+												
+											}else{
+												
+											} */
+											
+											?>
+
                                         </tr>
 									
 								<?php }}?>
