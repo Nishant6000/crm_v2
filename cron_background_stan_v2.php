@@ -8,7 +8,7 @@ require("./classes_v2/class.validatemail.php");
 require('./classes_v2/xlsxwriter.php');
 date_default_timezone_set('America/Chicago');
 $date = date('Y-m-d');
-$username =  "nishanth_optin";
+$username =  "stanley.dave";
 $mail_type = "text";
 $match = array("CEO","President","Owner","CMO","Chief Marketing Officer","VP of Marketing","VP Marketing","Digital Marketing Manager","Event Coordinator","Event manager","Product marketing manager","Director brand marketing","Director of brand marketing","Digital marketing specialist","Director email marketing","Director of email marketing","Demand generation manager","Campaign manager","Marketing Database Manager","Director Marketing","Director web marketing","Director of web marketing","Affiliate marketing manager","Channel marketing director","Digital media director","VP Business Development","Business Development Director","Global Sales","VP of Sales","VP Sales","Director of Sales","Director Sales","Regional Sales Manager","Head of Sales","Sales Engineer","Business Development Manager","Sales Manager","Chief Sales Officer","Marketing Manager");
 //===========================================================================
@@ -131,7 +131,7 @@ function mainvalidationemail($email,$no){
 		}
 	}
 //========================Get ALL Pending Task===============================
-//while(1){
+while(1){
 	$task = get_all_pending_Task($username);
 	if($task){
 		foreach ($task as $tas){
@@ -347,9 +347,195 @@ update_filename($tas["sl_no"], $Output_File_Loc);
 				}
 				//=============Bulk Search Process============
 			}else if($tas["typeofsearch"] == "MAILVAL"){
-				$filename = $tas["fileloc"];
-//*****************************Start OF MAILVAL********************************************************
+ini_set('display_errors', 0);
+ini_set('log_errors', 1);
+error_reporting(E_ALL & ~E_NOTICE);
 
+
+//*****************************Start OF MAILVAL********************************************************
+				$filename = $tas["fileloc"];
+				$filename = str_ireplace('../','./',$filename);
+				$xlsx = new XLSXReader($filename);
+				$sheetNames = $xlsx->getSheetNames();
+				$sheet = $xlsx->getSheet($sheetNames[1]);
+				$final = $sheet->getData();
+				$final_count = count($final);
+				$namest = false;
+				$urlcnt = 0;
+				$urlfcount = 0;
+				$forxlsxdata = array();
+				$writer = new XLSXWriter();
+				$writer->setAuthor('Optin Prospects'); 
+				$kmc = 0;
+				$nvalal = 0;
+				//========count if data exists else close the activity====
+				if($final_count){
+					$filearray = explode('/',$filename);
+$Output_File_NameMalV = "amailval-".$tas["campaign_name"]."-".rand(1,100)."-".$filearray[3];
+$Output_File_LocMalV = "./optin_db_folder_v2/".$filearray[2]."/".$Output_File_NameMalV;
+$newcsvfile = "csvamailval-".rand(1,100).".csv";
+$newcsvfileloc = "./optin_db_folder_v2/".$username."/".$newcsvfile;
+if (!file_exists($newcsvfileloc)) {
+	$fh = fopen($newcsvfileloc, 'w');
+}
+$file_loc = "./optin_db_folder_v2/".$username."/".$Output_File_NameMalV;
+if (!file_exists('./optin_db_folder_v2/'.$username)) {
+	mkdir('./optin_db_folder_v2/'.$username, 0777, true);
+}
+//=====================================Check if output file Exists==== 
+if(file_exists($Output_File_LocMalV)){
+	echo "</br>";
+	echo "File Exists cannot Proceed Further. Please Create a New Campagin";
+	die;
+}else{
+	echo "Processing File".$filearray[3].". Please wait...";	
+}
+for($c=0;$c<40000;$c++)echo " ";
+flush();
+//=============================================Mail Val Process=======================
+if(count($sheetNames) == 0 || count($sheetNames) == ""){
+	echo "Empty File Cannot Proceed";
+}else{
+	//$sheetNames = $xlsx->getSheetNames();
+	$sheet = $xlsx->getSheet($sheetNames[1]);
+	$final = $sheet->getData();
+	$rowcounter =  count($final);
+	$rowcount = $final[0];
+	$rowhorizontal = count($rowcount);
+	if($rowhorizontal == 2 && stristr($rowcount[0], 'url')){
+		$ftype = "BUL";
+	}else if($rowhorizontal == 6 && stristr($rowcount[0], 'company')){
+		$ftype = "COS";
+	}else{
+		$msg = "Sorry Unsupported File Format";
+		update_error_msg($tas["sl_no"], $msg, 2);// stored error msg and stopped
+	}
+	foreach($rowcount as $rowcnt){
+		if(stristr($rowcnt, 'Email')){
+			$namest = true;
+			$urlfcount = $urlcnt;
+			
+		}else{
+		}
+		$urlcnt++;
+	}
+	if($namest){
+		echo "Good Company Name Exists!";
+		$namest = false;
+		///===========================================================================================
+		update_count($tas["sl_no"], 'percentage3', 100);
+		update_count($tas["sl_no"], 'percentage1', 100);
+		update_filename($tas["sl_no"], $newcsvfileloc);
+		//==========================================================================================
+		for($i=0;$i<$rowcounter;$i++){
+			$rowcount = $final[$i];
+			$rowtest = $rowcount[$urlfcount];
+					if(!stristr($rowtest, 'Email') && $rowtest != ""){
+						sleep(1);
+						
+						$urlcurrent = explode('@',$rowtest);
+						if($urlcurrent[1] == $urlold){
+							$urlctr++;
+						}else{
+							$urlctr = 0;
+							$urlold = $urlcurrent[1];
+							$trip = "2";
+						}
+						
+						
+						//==========================================================================
+								$valstatraw = mainvalidationemail($rowtest,$urlctr);
+								if($valstatraw){
+									$valstat = "Success";
+								}else if($urlcurrent[1] == $urlold && $trip == "4"){
+									$valstat = "Failed";
+								}else{
+									$valstat = "Moderate";
+								}
+								//process vall
+								
+								//========================
+								
+								if($kmc == 0 && $ftype == "COS"){
+									$forxlsxdata[$kmc] = array('Company','Url','Name','Designation', 'Email', 'Result');
+									savefile($newcsvfileloc, $forxlsxdata[$kmc]);// newly added
+								}else if($kmc == 0 && $ftype == "BUL"){
+									$forxlsxdata[$kmc] = array('Url','Email','Result');
+									savefile($newcsvfileloc, $forxlsxdata[$kmc]);// newly added
+								}else if($kmc != 0 && $ftype == "BUL"){
+									$forxlsxdata[$kmc] = array($rowcount[0], $rowtest, $valstat);
+									savefile($newcsvfileloc, $forxlsxdata[$kmc]);// newly added
+								}else if($kmc != 0 && $ftype == "COS"){
+									$forxlsxdata[$kmc] = array($rowcount[0], $rowcount[1], $rowcount[2], $rowcount[3], $rowtest, $valstat);
+									savefile($newcsvfileloc, $forxlsxdata[$kmc]);// newly added
+								}else{
+									$msg = "Error: Unexpected Condition!";
+									update_error_msg($tas["sl_no"], $msg, 2);// stored error msg and stopped
+								}
+								$kmc++;
+								
+								
+								
+								
+								
+					
+					// store it into excel ================================================
+							
+					}else{
+						if($ftype == "BUL"){
+							$forxlsxdata[0] = array('Company-name','Url');
+							savefile($newcsvfileloc, $forxlsxdata[0]);// newly added
+						}else if ($ftype == "COS"){
+							$forxlsxdata[0] = array('Company','Url','Name','Designation', 'Email', 'Result');
+							savefile($newcsvfileloc, $forxlsxdata[0]);// newly added
+						}else{
+							$msg = "Error: Unexpected Condition! Loc2";
+							update_error_msg($tas["sl_no"], $msg, 2);// stored error msg and stopped
+						}
+						$kmc++;
+					}
+			sleep(0);
+			update_count($tas["sl_no"],'email_gathering', $nval);
+			//update Percentage
+			$final_count2 = $final_count - 1;
+			$per = ($nvalal / $final_count2)*100;
+			update_count($tas["sl_no"],'percentage2', $per);
+			$nvalal++;
+			}
+		
+		if (!file_exists($Output_File_NameMalV)) {
+		foreach($forxlsxdata as $row){
+		$writer->writeSheetRow('Sheet1', $row);
+		}		
+} else {
+    echo "The file $main_file_name exist";
+	
+}
+$writer->writeToFile($Output_File_NameMalV);
+echo "Saved To File";
+update_count($tas["sl_no"],'percentage2', 100);
+update_success_msg($tas["sl_no"], "Data Saved Successfully", 1);
+update_filename($tas["sl_no"], $Output_File_NameMalV);
+echo $Output_File_NameMalV;
+			//foreach($forxlsxdata as $test){
+				//print_r($test) ;
+				//echo "</br>";
+			//}
+	}else{
+		$namest = false;
+		$msg = "Excel File without Url Cannot Be Used. Please Upload a new File";
+		update_error_msg($tas["sl_no"], $msg, 2);// stored error msg and stopped
+		
+}
+}
+//=====================================================================================
+					//Mail Validation Here
+				}else{
+					// update database with error report of invalid file type
+					$msg = "Empty Excel File";
+					update_error_msg($tas["sl_no"], $msg, 2);// stored error msg and stopped
+				}
+//========*******STARTOFBULKSEARCH******************************************************
 
 //*************************End OF MAILVAL**************************************************************
 			}else if($tas["typeofsearch"] == "CTOURL"){
@@ -1111,9 +1297,10 @@ update_filename($tas["sl_no"], $Output_File_LocF);
 //******************************************************************************************************************************************************				
 			}
 		}
-		die;
+		
 	}
-//}
+	sleep(600);
+}
 
 
 //=================================================================

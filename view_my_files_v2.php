@@ -140,12 +140,14 @@
                                                 </div>
                                             </div></td>
 											<?php 
-											echo '<td class="text-center"><a href=".download_v2.php?f='.$dat['tmpcsvfileloc'].'"><i class="fa fa-download" aria-hidden="true"></i></a>&nbsp;&nbsp;<a href="./delete_v2.php?id='.$dat['sl_no'].'"><i class="fa fa-trash" style="color:red;"aria-hidden="true"></i></a></td>';
-											/* if($dat['status']){
-												
+											
+											if($dat['percentage1'] == 100 && $dat['percentage2'] == 100 && $dat['percentage3'] == 100){
+												echo '<td class="text-center"><a href="download_v2.php?f='.$dat['tmpcsvfileloc'].'"><i class="fa fa-download" aria-hidden="true"></i></a>&nbsp;</td>';
+											}else if($dat['percentage1'] == 0 && $dat['percentage2'] == 0 && $dat['percentage3'] == 0){
+												echo '<td class="text-center">&nbsp;<a href="./delete_v2.php?id='.$dat['sl_no'].'"><i class="fa fa-trash" style="color:red;"aria-hidden="true"></i></a></td>';
 											}else{
-												
-											} */
+												echo '<td class="text-center"><a href="download_v2.php?f='.$dat['tmpcsvfileloc'].'"><i class="fa fa-download" aria-hidden="true"></i></a>&nbsp;</td>';
+											}
 											
 											?>
 
