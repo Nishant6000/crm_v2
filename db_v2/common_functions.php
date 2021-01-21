@@ -83,13 +83,17 @@ function  add_camp_task($campaign,$username,$fileloc,$typeofs) {
 	date_default_timezone_set('Asia/Kolkata');
 	$datetime = date('Y-m-d h:i:s', time());
 	$sql = "INSERT INTO campaign (campaign_name, username, fileloc, fileuploaded_time, typeofsearch) VALUES ('$campaign','$username','$fileloc','$datetime','$typeofs')";
-    try {
+   /*  try {
         $stmt = $DB->prepare($sql);
         $stmt->execute();
     } catch (Exception $ex) {
         $error = errorMessage($ex->getMessage());
 		echo $error;
-    }
+    } */
+	$link = mysqli_connect(DB_HOST, DB_HOST_USERNAME, DB_HOST_PASSWORD, DB_DATABASE);
+	//mysqli_select_db(DB_DATABASE, $link);
+	$result = mysqli_query($link, $sql);
+	return $result;
 }
 //======================================================================================================
 function select_all_camp($user){

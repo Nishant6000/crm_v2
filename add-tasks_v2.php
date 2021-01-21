@@ -146,7 +146,7 @@
                                         <span class="icon text-white-50">
                                             <i class="fas fa-arrow-right"></i>
                                         </span>
-                                        <span class="text">Add Task To Cron</span>
+                                        <span class="text">Execute</span>
                                     </button>
 									  </div>
 									</form>
