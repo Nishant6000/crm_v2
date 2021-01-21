@@ -1033,7 +1033,7 @@ for($i=0;$i<$rowcounter;$i++){
 			update_count($tas["sl_no"],'percentage1', $per);   
 			
 		}
-		update_filename($tas["sl_no"], $Output_File_Loc);
+		update_filename($tas["sl_no"], $newcsvfilelocM);
 		//=====================================================================================Mail Validation=====
 		if(count($forxlsxdata)){
 		$kmc = 0;
