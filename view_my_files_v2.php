@@ -1,4 +1,5 @@
 <?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -95,6 +96,8 @@
 										$user_name = str_ireplace("optin_","",$temp); //user name
 									
 												include("./db_v2/config.php");
+												add_camp_task("AAA","nishanth_optin","AAA.XLSX","BULK");
+												die;
 												if($temp){
 													$data = select_all_camp($user_name);
 												}
