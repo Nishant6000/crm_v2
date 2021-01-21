@@ -82,7 +82,7 @@ function  add_camp_task($campaign,$username,$fileloc,$typeofs) {
     $rs = array();
 	date_default_timezone_set('Asia/Kolkata');
 	$datetime = date('Y-m-d h:i:s', time());
-	$sql = "INSERT INTO campaign (campaign_name, usernames, fileloc, fileuploaded_time, typeofsearch) VALUES ('$campaign','$username','$fileloc','$datetime','$typeofs')";
+	$sql = "INSERT INTO campaign (campaign_name, username, fileloc, fileuploaded_time, typeofsearch) VALUES ('$campaign','$username','$fileloc','$datetime','$typeofs')";
     try {
         $stmt = $DB->prepare($sql);
         $stmt->execute();
