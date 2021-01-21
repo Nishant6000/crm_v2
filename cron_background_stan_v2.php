@@ -131,7 +131,7 @@ function mainvalidationemail($email,$no){
 		}
 	}
 //========================Get ALL Pending Task===============================
-while(1){
+//while(1){
 	$task = get_all_pending_Task($username);
 	if($task){
 		foreach ($task as $tas){
@@ -1299,8 +1299,8 @@ update_filename($tas["sl_no"], $Output_File_LocF);
 		}
 		
 	}
-	sleep(600);
-}
+	//sleep(600);
+//}
 
 
 //=================================================================
