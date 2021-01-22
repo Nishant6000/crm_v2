@@ -1274,7 +1274,7 @@ $filecnt2++;
 			update_error_msg($tas["sl_no"], $msg, 2);
 			
 		}
-$writer->writeToFile($Output_File_LocM);
+$writer->writeToFile($Output_File_LocF);
 echo "Saved To File";
 //===Store Success in Database======================================
 update_success_msg($tas["sl_no"], "Data Saved Successfully", 1);
@@ -1299,7 +1299,7 @@ update_filename($tas["sl_no"], $Output_File_LocF);
 		}
 		
 	}
-	sleep(600);
+	sleep(10);
 }
 
 
