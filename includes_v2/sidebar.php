@@ -65,7 +65,12 @@
 
             <!-- Heading -->
             
-
+			<li class="nav-item">
+                <a class="nav-link collapsed" href="settings_v2.php">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </li>
             <!-- Sidebar Message -->
             
 

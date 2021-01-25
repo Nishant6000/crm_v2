@@ -1,5 +1,6 @@
 
 <?php 
+
 include("./db_v2/config.php");
 require('./classes_v2/xlsxreader.php');
 require('./classes_v2/class.customsearch.php');
@@ -515,8 +516,8 @@ $writer->writeToFile($Output_File_NameMalV);
 echo "Saved To File";
 update_count($tas["sl_no"],'percentage2', 100);
 update_success_msg($tas["sl_no"], "Data Saved Successfully", 1);
-update_filename($tas["sl_no"], $Output_File_NameMalV);
-echo $Output_File_NameMalV;
+update_filename($tas["sl_no"], $newcsvfileloc);
+//echo $Output_File_NameMalV;
 			//foreach($forxlsxdata as $test){
 				//print_r($test) ;
 				//echo "</br>";

@@ -233,4 +233,46 @@ function write_capatcha($proxyname, $txt2){
         echo errorMessage($ex->getMessage());
     }
 }
+function delete_proxy($proxyname){
+	 global $DB;
+    $rs = array();
+	$sql = "DELETE FROM proxy WHERE name = '$proxyname'";
+    
+    try {
+        $stmt = $DB->prepare($sql);
+        $stmt->execute();
+    } catch (Exception $ex) {
+        echo errorMessage($ex->getMessage());
+    }
+
+}
+function delete_proxy_cap($proxyname){
+	 global $DB;
+    $rs = array();
+	$sql = "DELETE FROM captcha WHERE name = '$proxyname'";
+    
+    try {
+        $stmt = $DB->prepare($sql);
+        $stmt->execute();
+    } catch (Exception $ex) {
+        echo errorMessage($ex->getMessage());
+    }
+
+}
+function write_proxy_to_database($servernumber, $proxy_name, $serverinfo, $user_final){
+	global $DB;
+    $rs = array();
+	$time = date('Y-m-d h-i-s', time());
+    //$sql = "INSERT INTO " . $table_name . " (content, slug, title, keyword, description, subtitle, image) VALUES ('". $paragraph ."', '". $slug . "', '". $title . "', '" . $subtitle ."', '" . $subtitle ."', '". $target_database ."')";
+	$sql = "INSERT INTO proxy (server_no, name, Serverinfo, Userpass) VALUES ('$servernumber', '$proxy_name', '$serverinfo', '$user_final')";
+    try {
+        $stmt = $DB->prepare($sql);
+        $stmt->execute();
+    } catch (Exception $ex) {
+        $error = errorMessage($ex->getMessage());
+		echo $error;
+    }
+	
+}
+
 ?>
