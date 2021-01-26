@@ -150,7 +150,7 @@
 										  <input type="radio" name="optradio" value="MAILVAL">&nbsp;Mail Validation 
 										</label>
 										<label class="radio-inline">
-										  <input type="radio" name="optradio" value="NOMAILVALCS">&nbsp;Custom NMV
+										  <input type="radio" name="optradio" value="CNMV">&nbsp;Custom NMV
 										</label>
 									  </div>
 									  <div class="task-btn">

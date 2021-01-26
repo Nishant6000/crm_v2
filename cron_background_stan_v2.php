@@ -1296,7 +1296,7 @@ update_filename($tas["sl_no"], $Output_File_LocF);
 				}
 				//=============customsearch Search Process============
 //******************************************************************************************************************************************************				
-			}else if($tas["typeofsearch"] == "NOMAILVALC"){
+			}else if($tas["typeofsearch"] == "CNMV"){
 				//**********************************************
 				$filename = $tas["fileloc"];
 				$filename = str_ireplace('../','./',$filename);
