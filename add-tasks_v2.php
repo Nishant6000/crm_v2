@@ -149,6 +149,9 @@
 										<label class="radio-inline">
 										  <input type="radio" name="optradio" value="MAILVAL">&nbsp;Mail Validation 
 										</label>
+										<label class="radio-inline">
+										  <input type="radio" name="optradio" value="NOMAILVALCS">&nbsp;Custom NMV
+										</label>
 									  </div>
 									  <div class="task-btn">
 									  <button type="submit" name="submit" class="btn btn-success btn-icon-split">
