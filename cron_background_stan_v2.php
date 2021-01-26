@@ -9,7 +9,7 @@ require("./classes_v2/class.validatemail.php");
 require('./classes_v2/xlsxwriter.php');
 date_default_timezone_set('America/Chicago');
 $date = date('Y-m-d');
-$username =  "nishanth_optin";
+$username =  "stanley.dave";
 $mail_type = "text";
 $match = array("CEO","President","Owner","CMO","Chief Marketing Officer","VP of Marketing","VP Marketing","Digital Marketing Manager","Event Coordinator","Event manager","Product marketing manager","Director brand marketing","Director of brand marketing","Digital marketing specialist","Director email marketing","Director of email marketing","Demand generation manager","Campaign manager","Marketing Database Manager","Director Marketing","Director web marketing","Director of web marketing","Affiliate marketing manager","Channel marketing director","Digital media director","VP Business Development","Business Development Director","Global Sales","VP of Sales","VP Sales","Director of Sales","Director Sales","Regional Sales Manager","Head of Sales","Sales Engineer","Business Development Manager","Sales Manager","Chief Sales Officer","Marketing Manager");
 //===========================================================================
