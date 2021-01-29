@@ -259,6 +259,18 @@ function delete_proxy_cap($proxyname){
     }
 
 }
+function create_proxy_cap($proxyname){
+	 global $DB;
+    $rs = array();
+	$sql = "INSERT INTO captcha (name, capdata) VALUES ('$proxyname','')";
+	 
+    try {
+        $stmt = $DB->prepare($sql);
+        $stmt->execute();
+    } catch (Exception $ex) {
+        echo errorMessage($ex->getMessage());
+    }
+}
 function write_proxy_to_database($servernumber, $proxy_name, $serverinfo, $user_final){
 	global $DB;
     $rs = array();

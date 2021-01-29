@@ -33,6 +33,7 @@ if(isset($_GET['querylmt'])){
 			$proxy_name = "WEBSHARE_PROXY";
 					delete_proxy($proxy_name);
 					delete_proxy_cap($proxy_name);
+					create_proxy_cap($proxy_name);
 				if($result_array->count < 250){
 					if($result_array->results){
 					$ipcount = $result_array->count;
