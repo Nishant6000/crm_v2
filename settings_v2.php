@@ -88,11 +88,11 @@ if($_SESSION["access_level"] != '1'){
 										<div class="form-group">
 										<label>Api Key </label>
 										
-										<input type="text" name="bmd-label-floating-proxy-api-wb" id="bmd-label-floating-proxy-api-wb" value="c70b6ddc3209761b26066997a065f835e980e4c5" class="form-control" required>   
+										<input type="text" name="bmd-label-floating-proxy-api-wb" id="bmd-label-floating-proxy-api-wb" value="e5b88d7e31d6aec39876e44c1b5c2404615675d0" class="form-control" required>   
 										</div>
 										<div class="form-group">
 										<label>Query Limit </label>
-										<input type="text" name="bmd-label-floating-query-limit-wb" id="bmd-label-floating-query-limit-wb" value="10" class="form-control" required>   
+										<input type="text" name="bmd-label-floating-query-limit-wb" id="bmd-label-floating-query-limit-wb" value="50" class="form-control" required>   
 										</div>
 										<div class="task-btn">
 									  <button type="submit" name="submit" class="btn btn-success btn-icon-split" onclick="add_proxy_files_webshare()">
