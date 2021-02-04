@@ -93,7 +93,7 @@ if($proxybulder){
 					echo "File Created Failed";
 				}
 			}else{
-				$loopcnt = $result_array->count/250; // Each page can only list 25 proxies
+				$loopcnt = $result_array->count/100; // Each page can only list 25 proxies
 					if($result_array->results){
 					$ipcount = $result_array->count;
 					//$user_final = $ipcount."|";
@@ -199,10 +199,10 @@ if($proxybulder){
 					}
 			}
 			//$fhW = fopen("../proxy/captcha.inf", 'w') or die("Failed to read file"); 
-			$txt2 = "1|".$date;
+			//$txt2 = "1|".$date;
 			//fwrite($fhW, $txt2);
 			//fclose($fhW);
-			writecapatcha($txt2);
+			//writecapatcha($txt2);
 			
 			
 			

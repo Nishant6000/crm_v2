@@ -1,12 +1,12 @@
 <?php
 include('../db_v2/config.php');
 date_default_timezone_set("America/New_York");
-$date = date("Y-m-d");
-$file_loc = "../proxy/"; 
-$user_final = "";
-$header = array();
-$ka = 2;
-$header[0] = "Accept: text/xml,application/xml,application/xhtml+xml,"; 
+	$date = date("Y-m-d");
+	$file_loc = "../proxy/"; 
+	$user_final = "";
+	$header = array();
+	$ka = 2;
+	$header[0] = "Accept: text/xml,application/xml,application/xhtml+xml,"; 
 	$header[0] .= "text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5"; 
 	$header[] = "Cache-Control: max-age=0"; 
 	$header[] = "Connection: keep-alive"; 
@@ -14,11 +14,12 @@ $header[0] = "Accept: text/xml,application/xml,application/xhtml+xml,";
 	$header[] = "Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7"; 
 	$header[] = "Accept-Language: en-us,en;q=0.5"; 
 	$header[] = "Pragma: "; //browsers keep this blank. 
+	$proxybulder = true;
 	
-if(isset($_GET['querylmt'])){
-	$querylmt = $_GET['querylmt'];// querylmt 
-	$proxyurl = $_GET['proxyurl']; // noofproxy
-	$proxyapi = $_GET['proxyapi']; // serverurl
+if($proxybulder){
+	$querylmt = 50;// querylmt 
+	$proxyurl = "https://proxy.webshare.io/api/proxy/list/"; // noofproxy
+	$proxyapi = "e5b88d7e31d6aec39876e44c1b5c2404615675d0"; // serverurl
 	$header[] = 'Authorization: Token '.$proxyapi; 
 			if (!file_exists($file_loc)) {
 				mkdir($file_loc, 0777, true);
@@ -29,7 +30,7 @@ if(isset($_GET['querylmt'])){
 			curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
 			$result = curl_exec($curl);
 			$result_array = json_decode($result);
-			//print_r($result_array);die;
+			//print_r($result_array);
 			$proxy_name = "WEBSHARE_PROXY";
 					delete_proxy($proxy_name);
 					delete_proxy_cap($proxy_name);
@@ -163,7 +164,7 @@ if(isset($_GET['querylmt'])){
 							}
 						}else{
 						echo "No Value in the Next Feild ";
-						die;
+						//die;
 						}
 						
 					
@@ -178,8 +179,7 @@ if(isset($_GET['querylmt'])){
 			
 			
 			
-}else{
-	echo "No Query Recived";
-}
-
-?>
+	}else{
+		echo "No Query Recived";
+	}
+	?>
