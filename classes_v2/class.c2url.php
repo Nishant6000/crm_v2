@@ -43,7 +43,7 @@ public static function refreshproxy(){
 	$header[] = "Pragma: "; //browsers keep this blank. 
 	$proxybulder = true;
 	
-if(isset($proxybulder){
+if($proxybulder){
 	$querylmt = 50;// querylmt 
 	$proxyurl = "https://proxy.webshare.io/api/proxy/list/"; // noofproxy
 	$proxyapi = "e5b88d7e31d6aec39876e44c1b5c2404615675d0"; // serverurl

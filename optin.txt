@@ -1,0 +1,13 @@
+cornelius_optin	---> cor1234 --> Y29yMTIzNA==
+sridhar_optin -->sri1234 --> c3JpMTIzNA==
+anand_optin  --> ana1234 --> YW5hMTIzNA==
+gokul_optin  --> gok1234 --> Z29rMTIzNA==
+thomas_optin  --> tho1234 --> dGhvMTIzNA==
+bharath_optin  --> bha1234  --> YmhhMTIzNCA=
+
+cornelius_optin	---> cor1234
+sridhar_optin -->sri1234
+anand_optin  --> ana1234
+gokul_optin  --> gok1234
+thomas_optin  --> tho1234
+bharath_optin  --> bha1234
