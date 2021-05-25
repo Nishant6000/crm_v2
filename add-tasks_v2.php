@@ -152,6 +152,9 @@
 										<label class="radio-inline">
 										  <input type="radio" name="optradio" value="CNMV">&nbsp;Custom NMV
 										</label>
+										<label class="radio-inline">
+										  <input type="radio" name="optradio" value="CNMVPOST">&nbsp;Custom POST NMV
+										</label>
 									  </div>
 									  <div class="task-btn">
 									  <button type="submit" name="submit" class="btn btn-success btn-icon-split">
